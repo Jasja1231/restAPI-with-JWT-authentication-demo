@@ -1,9 +1,17 @@
-<div xmlns:th="http://www.thymeleaf.org">
+<div xmlns:th="http://www.thymeleaf.org" >
     <nav class="navbar navbar-default">
         <div class="container-fluid">
-            <div class="navbar-header">
-                <a class="navbar-brand" th:href="@{/}">TODOs List</a>
-            </div>
+                <div class="navbar-header">
+<!--                    todo: configure links-->
+                        <a class="navbar-brand" th:href="@{/}">TODOs Home</a>
+                        <a class="navbar-brand" th:href="@{/}">My TODOs</a>
+                        <a class="navbar-brand" th:href="@{/}">List of users</a> <!-- todo make 'sec' work to show only hasRole("ROLE_ADMIN")-->
+                </div>
+
+                <form  class="navbar-brand" th:if="${#authentication.isAuthenticated()}" th:action="@{/logout}" method="post" style="display: inline-block; float: right;">
+                    <label >Hello <span th:text="username"/> !</label>
+                    <input  class="btn-info btn-sm" type="submit" value="Log out">
+                </form>
         </div>
     </nav>
 </div>
