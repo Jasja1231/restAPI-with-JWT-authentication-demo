@@ -28,7 +28,7 @@ public class UserDetailsImpl implements org.springframework.security.core.userde
         this.firstName = user.getFirstName();
 
         this.authorities = new ArrayList<>();
-        authorities.add(new SimpleGrantedAuthority(user.getRole().getName()));
+        authorities.add(new SimpleGrantedAuthority("ROLE_" + user.getRole().getName()));
     }
 
 
