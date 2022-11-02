@@ -8,10 +8,11 @@
                         <a class="navbar-brand" sec:authorize="hasRole('ADMIN')" th:href="@{/}">List of users</a> <!-- todo make 'sec' work to show only hasRole("ROLE_ADMIN")-->
                 </div>
 
-            <form  class="navbar-brand" th:if="${(#authentication.isAuthenticated()) && #authentication!=null }" th:action="@{/logout}" method="post" style="display: inline-block; float: right;" th:with="auth=${#authentication.getPrincipal()}">
-                <label >Hello <a th:text="${auth!=null ? auth.user.getFirstName() : 'UNKNOWN'}"/> !</label>
-                <input  class="btn-info btn-sm" type="submit" value="Log out">
-            </form>
+
+                <form  class="navbar-brand" sec:authorize="isAuthenticated()" th:action="@{/logout}" method="post" style="display: inline-block; float: right;" th:with="auth=${#authentication.getPrincipal()}">
+                    <label >Hello <a th:text="${auth.firstName}"/> !</label>
+                    <input  class="btn-info btn-sm" type="submit" value="Log out">
+                </form>
         </div>
     </nav>
 </div>

@@ -9,8 +9,16 @@ import java.util.Collection;
 public class UserDetailsImpl implements org.springframework.security.core.userdetails.UserDetails {
     private final User user;
 
+    public String getFirstName() {
+        return firstName;
+    }
+
+    private String firstName;
+
+
     public UserDetailsImpl(User user) {
         this.user = user;
+        this.firstName = user.getFirstName();
     }
 
     @Override
