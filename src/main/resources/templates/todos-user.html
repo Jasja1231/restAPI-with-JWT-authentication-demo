@@ -33,10 +33,24 @@
             <td th:text="${#temporals.format(todo.createdAt, 'dd.MM.yyyy HH:mm')}"/>
             <td th:text="${todo.getOwner().firstName + ' ' + todo.getOwner().lastName}"></td>
             <td>
-                <a th:href="@{|/todos/${todo.id}/update/users/${todo.owner.id}|}">Edit</a>
+                <div th:switch="${#authentication.principal.user.id}">
+                    <a th:case="${todo.owner.id}"
+                       th:href="@{|/todos/${todo.id}/update/users/${todo.owner.id}|}">Edit</a>
+                    <a th:case="*"
+                       th:href="@{|/todos/${todo.id}/update/users/${todo.owner.id}|}"
+                       class="btn disabled"
+                       style="padding: 0">Edit</a>
+                </div>
             </td>
             <td>
-                <a th:href="@{|/todos/${todo.id}/delete/users/${todo.owner.id}|}">Remove</a>
+                <div th:switch="${#authentication.principal.user.id}">
+                    <a th:case="${todo.owner.id}"
+                       th:href="@{|/todos/${todo.id}/delete/users/${todo.owner.id}|}">Remove</a>
+                    <a th:case="*"
+                       th:href="@{|/todos/${todo.id}/delete/users/${todo.owner.id}|}"
+                       class="btn disabled"
+                       style="padding: 0">Remove</a>
+                </div>
             </td>
         </tr>
     </table>
