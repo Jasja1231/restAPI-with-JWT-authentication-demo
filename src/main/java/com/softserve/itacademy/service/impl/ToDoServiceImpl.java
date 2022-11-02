@@ -3,7 +3,9 @@ package com.softserve.itacademy.service.impl;
 import com.softserve.itacademy.exception.NullEntityReferenceException;
 import com.softserve.itacademy.model.ToDo;
 import com.softserve.itacademy.repository.ToDoRepository;
+import com.softserve.itacademy.security.UserDetailsImpl;
 import com.softserve.itacademy.service.ToDoService;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityNotFoundException;
@@ -57,5 +59,20 @@ public class ToDoServiceImpl implements ToDoService {
     public List<ToDo> getByUserId(long userId) {
         List<ToDo> todos = todoRepository.getByUserId(userId);
         return todos.isEmpty() ? new ArrayList<>() : todos;
+    }
+
+    public boolean canReadToDo(long todoId) {
+        long userId = ((UserDetailsImpl) SecurityContextHolder.getContext()
+            .getAuthentication()
+            .getPrincipal())
+                .getUser()
+                .getId();
+        ToDo todo = readById(todoId);
+
+        if (todo.getOwner().getId() == userId)
+            return true;
+        return todo.getCollaborators()
+            .stream()
+            .anyMatch(x -> x.getId() == userId);
     }
 }
