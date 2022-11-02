@@ -4,7 +4,12 @@ import com.softserve.itacademy.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
+
 
 public class UserDetailsImpl implements org.springframework.security.core.userdetails.UserDetails {
     private final User user;
@@ -15,15 +20,21 @@ public class UserDetailsImpl implements org.springframework.security.core.userde
 
     private String firstName;
 
+    private List<GrantedAuthority> authorities;
+
 
     public UserDetailsImpl(User user) {
         this.user = user;
         this.firstName = user.getFirstName();
+
+        this.authorities = new ArrayList<>();
+        authorities.add(new SimpleGrantedAuthority(user.getRole().getName()));
     }
+
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return null;
+        return authorities;
     }
 
     @Override
