@@ -1,21 +1,24 @@
 package com.softserve.itacademy.controller;
 
-import com.softserve.itacademy.service.RoleService;
-import com.softserve.itacademy.service.UserService;
+import com.softserve.itacademy.security.UserDetailsImpl;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestWrapper;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
 @Controller
 public class HomeController {
-    private final UserService userService;
-    public HomeController(UserService userService) {
-        this.userService = userService;
-    }
 
     @GetMapping({"/", "home"})
-    public String home(Model model) {
-        model.addAttribute("users", userService.getAll());
-        return "home";
+    public String home(SecurityContextHolderAwareRequestWrapper request) {
+        long userId = ((UserDetailsImpl) SecurityContextHolder.getContext()
+            .getAuthentication()
+            .getPrincipal())
+            .getUser()
+            .getId();
+
+        return request.isUserInRole("ADMIN")
+            ? "redirect:/users/all"
+            : "redirect:/todos/all/users/" + userId;
     }
 }
