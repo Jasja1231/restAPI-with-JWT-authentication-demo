@@ -5,7 +5,7 @@
 <!--                    todo: configure links-->
                         <a class="navbar-brand" th:href="@{/}">TODOs Home</a>
                         <a class="navbar-brand" sec:authorize="isAuthenticated()" th:href="@{/todos/all/users/{user_id}(user_id=${#authentication.getPrincipal().getUser().getId()})}">My TODOs</a>
-                        <a class="navbar-brand" sec:authorize="hasAuthority('ADMIN')" th:href="@{/users/all}">List of users</a>
+                        <a class="navbar-brand" sec:authorize="hasRole('ROLE_ADMIN')" th:href="@{/users/all}">List of users</a>
                 </div>
 
 

@@ -45,7 +45,9 @@
     <br>
     <h3>Collaborators:</h3>
     <span>
-        <form class="form-horizontal" th:action="@{/todos/{id}/add(id = ${todo.id})}" method="get">
+        <form th:classappend="${(#authentication.principal.user.id != todo.owner.id)
+                              && (#authorization.expression('hasRole(''USER'')'))} ? hidden"
+              class="form-horizontal" th:action="@{/todos/{id}/add(id = ${todo.id})}" method="get">
             <select class="form-control" name="user_id" id="users">
                 <option>Select collaborator...</option>
                 <option th:each="user : ${users}" th:value="${user.id}"
