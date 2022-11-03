@@ -34,12 +34,14 @@
             <td th:text="${todo.getOwner().firstName + ' ' + todo.getOwner().lastName}"></td>
             <td>
                 <a th:href="@{|/todos/${todo.id}/update/users/${todo.owner.id}|}"
-                   th:classappend="${#authentication.principal.user.id != todo.owner.id} ? disabled"
+                   th:classappend="${#authorization.expression('hasRole(''USER'')')
+                       && #authentication.principal.user.id != todo.owner.id} ? disabled"
                    class="btn btn-link" style="padding: 0; border: 0">Edit</a>
             </td>
             <td>
                 <a th:href="@{|/todos/${todo.id}/delete/users/${todo.owner.id}|}"
-                   th:classappend="${#authentication.principal.user.id != todo.owner.id} ? disabled"
+                   th:classappend="${#authorization.expression('hasRole(''USER'')')
+                       && #authentication.principal.user.id != todo.owner.id} ? disabled"
                    class="btn btn-link" style="padding: 0; border: 0">Remove</a>
             </td>
         </tr>
