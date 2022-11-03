@@ -52,7 +52,7 @@ public class ToDoController {
     }
 
     @GetMapping("/{id}/tasks")
-    @PreAuthorize("hasRole('ADMIN') or @toDoServiceImpl.canReadToDo(#id)")
+    @PreAuthorize("hasRole('ADMIN') or @toDoServiceImpl.canAccessToDo(#id)")
     public String read(@PathVariable long id, Model model) {
         ToDo todo = todoService.readById(id);
         List<Task> tasks = taskService.getByTodoId(id);

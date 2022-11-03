@@ -61,7 +61,7 @@ public class ToDoServiceImpl implements ToDoService {
         return todos.isEmpty() ? new ArrayList<>() : todos;
     }
 
-    public boolean canReadToDo(long todoId) {
+    public boolean canAccessToDo(long todoId) {
         long userId = ((UserDetailsImpl) SecurityContextHolder.getContext()
             .getAuthentication()
             .getPrincipal())
