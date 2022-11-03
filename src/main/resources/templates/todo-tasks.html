@@ -69,7 +69,7 @@
                    th:text="${collaborator.firstName + ' ' + collaborator.lastName}"/>
             </td>
             <td th:if="${#authorization.expression('hasRole(''ADMIN'')')
-                || #authentication.principal.user.id == todo.owner.id}">
+                or #authentication.principal.user.id == todo.owner.id}">
                 <a th:href="@{/todos/{id}/remove(id = ${todo.id}, user_id = ${collaborator.id})}">Remove</a>
             </td>
         </tr>
