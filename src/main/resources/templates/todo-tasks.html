@@ -61,10 +61,15 @@
         <tr th:each="collaborator, iStat: ${todo.collaborators}">
             <td th:text="${iStat.index + 1}"/>
             <td>
-                <a th:href="@{|/todos/all/users/${collaborator.id}|}"
+                <a th:if="${#authorization.expression('hasRole(''ADMIN'')')}"
+                   th:href="@{|/todos/all/users/${collaborator.id}|}"
+                   th:text="${collaborator.firstName + ' ' + collaborator.lastName}"/>
+                <span
+                   th:if="${#authorization.expression('hasRole(''USER'')')}"
                    th:text="${collaborator.firstName + ' ' + collaborator.lastName}"/>
             </td>
-            <td>
+            <td th:if="${#authorization.expression('hasRole(''ADMIN'')')
+                || #authentication.principal.user.id == todo.owner.id}">
                 <a th:href="@{/todos/{id}/remove(id = ${todo.id}, user_id = ${collaborator.id})}">Remove</a>
             </td>
         </tr>
