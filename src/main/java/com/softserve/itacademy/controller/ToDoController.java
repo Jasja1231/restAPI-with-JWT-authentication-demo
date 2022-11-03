@@ -104,7 +104,7 @@ public class ToDoController {
     }
 
     @GetMapping("/{id}/add")
-    @PreAuthorize("hasRole('ADMIN') or authentication.principal.user.id == #userId")
+    @PreAuthorize("hasRole('ADMIN') or authentication.principal.user.id == #id")
     public String addCollaborator(@PathVariable long id, @RequestParam("user_id") long userId) {
         ToDo todo = todoService.readById(id);
         List<User> collaborators = todo.getCollaborators();
@@ -115,7 +115,7 @@ public class ToDoController {
     }
 
     @GetMapping("/{id}/remove")
-    @PreAuthorize("hasRole('ADMIN') or authentication.principal.user.id == #userId")
+    @PreAuthorize("hasRole('ADMIN') or authentication.principal.user.id == #id")
     public String removeCollaborator(@PathVariable long id, @RequestParam("user_id") long userId) {
         ToDo todo = todoService.readById(id);
         List<User> collaborators = todo.getCollaborators();
