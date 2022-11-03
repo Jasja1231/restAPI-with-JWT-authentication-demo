@@ -75,4 +75,14 @@ public class ToDoServiceImpl implements ToDoService {
             .stream()
             .anyMatch(x -> x.getId() == userId);
     }
+
+    public boolean isToDoOwner(long todoId) {
+        long userId = ((UserDetailsImpl) SecurityContextHolder.getContext()
+            .getAuthentication()
+            .getPrincipal())
+            .getUser()
+            .getId();
+
+       return readById(todoId).getOwner().getId() == userId;
+    }
 }
