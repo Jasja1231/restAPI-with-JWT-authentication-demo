@@ -57,7 +57,7 @@ TaskDto getById(@PathVariable long id){return TaskTransformer.convertToDto(taskS
         return ResponseEntity.created(location).build();
 
 }
-    @DeleteMapping("/{id}")
+    @PutMapping("/{id}")
     @ResponseStatus(HttpStatus.CREATED)
     ResponseEntity<Object> put(@PathVariable long id,@RequestBody TaskDto taskDto) {
 
@@ -75,7 +75,7 @@ TaskDto getById(@PathVariable long id){return TaskTransformer.convertToDto(taskS
 
         return ResponseEntity.created(location).build();
     }
-    @DeleteMapping("/taskId/{ts_id}/delete")
+    @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     void delete(@PathVariable long id) {
         taskService.delete(id);
