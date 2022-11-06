@@ -29,6 +29,8 @@ public class ApplicationSecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity httpSecurity) throws Exception {
         httpSecurity
                 .authorizeRequests()
+                .antMatchers("/api/**")
+                .permitAll()
                 .antMatchers("/auth/login")
                 .permitAll()
                 .antMatchers("/users/create")
