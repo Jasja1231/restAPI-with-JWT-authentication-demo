@@ -1,8 +1,14 @@
 package com.softserve.itacademy.dto;
 
+import com.fasterxml.jackson.databind.PropertyNamingStrategy;
+import com.fasterxml.jackson.databind.annotation.JsonNaming;
+import com.softserve.itacademy.model.Task;
+
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+import java.util.Objects;
 
+@JsonNaming(PropertyNamingStrategy.SnakeCaseStrategy.class)
 public class TaskDto {
     private long id;
 
@@ -27,6 +33,14 @@ public class TaskDto {
         this.priority = priority;
         this.todoId = todoId;
         this.stateId = stateId;
+    }
+
+    public TaskDto(Task task) {
+        this.id = task.getId();
+        this.name= task.getName();
+        this.priority = task.getPriority().toString();
+        this.todoId = task.getTodo().getId();
+        this.stateId = task.getState().getId();
     }
 
     public long getId() {
@@ -67,5 +81,29 @@ public class TaskDto {
 
     public void setStateId(long stateId) {
         this.stateId = stateId;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        TaskDto taskDto = (TaskDto) o;
+        return id == taskDto.id && todoId == taskDto.todoId && stateId == taskDto.stateId && Objects.equals(name, taskDto.name) && Objects.equals(priority, taskDto.priority);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, name, priority, todoId, stateId);
+    }
+
+    @Override
+    public String toString() {
+        return "TaskDto { " +
+                "id = " + id +
+                ", name = '" + name + '\'' +
+                ", priority = '" + priority + '\'' +
+                ", todoId = " + todoId +
+                ", stateId = " + stateId +
+                " }";
     }
 }
