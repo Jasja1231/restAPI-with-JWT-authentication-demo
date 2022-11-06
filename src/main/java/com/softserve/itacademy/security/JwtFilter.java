@@ -17,7 +17,6 @@ import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 
 @Component
-@Slf4j
 public class JwtFilter extends GenericFilterBean {
 
     public static final String AUTHORIZATION = "Authorisation";

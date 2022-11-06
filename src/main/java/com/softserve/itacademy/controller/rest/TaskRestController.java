@@ -75,7 +75,7 @@ TaskDto getById(@PathVariable long id){return TaskTransformer.convertToDto(taskS
 
         return ResponseEntity.created(location).build();
     }
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/taskId/{ts_id}/delete")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     void delete(@PathVariable long id) {
         taskService.delete(id);
