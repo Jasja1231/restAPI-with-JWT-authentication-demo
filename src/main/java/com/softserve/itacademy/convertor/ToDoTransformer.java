@@ -6,7 +6,7 @@ import com.softserve.itacademy.model.User;
 import org.springframework.stereotype.Component;
 
 @Component
-public class ToDoConvertor {
+public class ToDoTransformer {
 
     public ToDoDto toDto(ToDo model) {
         ToDoDto dto = new ToDoDto();
