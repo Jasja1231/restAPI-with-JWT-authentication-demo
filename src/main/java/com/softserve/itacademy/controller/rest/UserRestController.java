@@ -1,7 +1,7 @@
 package com.softserve.itacademy.controller.rest;
 
 import com.softserve.itacademy.dto.UserDto;
-import com.softserve.itacademy.dto.UserTransformer;
+import com.softserve.itacademy.transformer.UserTransformer;
 import com.softserve.itacademy.model.User;
 import com.softserve.itacademy.service.RoleService;
 import com.softserve.itacademy.service.UserService;

@@ -1,10 +1,10 @@
 package com.softserve.itacademy.controller.rest;
 
-import com.softserve.itacademy.convertor.ToDoTransformer;
+import com.softserve.itacademy.transformer.ToDoTransformer;
 import com.softserve.itacademy.dto.CollaboratorDto;
 import com.softserve.itacademy.dto.ToDoDto;
 import com.softserve.itacademy.dto.UserDto;
-import com.softserve.itacademy.dto.UserTransformer;
+import com.softserve.itacademy.transformer.UserTransformer;
 import com.softserve.itacademy.exception.DuplicateEntityException;
 import com.softserve.itacademy.model.ToDo;
 import com.softserve.itacademy.service.ToDoService;

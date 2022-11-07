@@ -1,4 +1,4 @@
-package com.softserve.itacademy.convertor;
+package com.softserve.itacademy.transformer;
 
 import com.softserve.itacademy.dto.ToDoDto;
 import com.softserve.itacademy.model.ToDo;
