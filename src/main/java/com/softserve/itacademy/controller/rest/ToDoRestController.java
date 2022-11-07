@@ -36,7 +36,7 @@ public class ToDoRestController {
         return toDoConvertor.toDto(toDoService.readById(id));
     }
 
-    @PostMapping("/todos/{id}")
+    @PutMapping("/todos/{id}")
     public void update(@PathVariable("id") long id, @RequestBody ToDoDto todo) {
         todo.setId(id);
         toDoService.update(toDoConvertor.toModel(todo));
