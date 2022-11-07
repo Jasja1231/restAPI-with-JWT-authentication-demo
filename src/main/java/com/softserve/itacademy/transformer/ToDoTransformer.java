@@ -1,4 +1,4 @@
-package com.softserve.itacademy.convertor;
+package com.softserve.itacademy.transformer;
 
 import com.softserve.itacademy.dto.ToDoDto;
 import com.softserve.itacademy.model.ToDo;
@@ -6,7 +6,7 @@ import com.softserve.itacademy.model.User;
 import org.springframework.stereotype.Component;
 
 @Component
-public class ToDoConvertor {
+public class ToDoTransformer {
 
     public ToDoDto toDto(ToDo model) {
         ToDoDto dto = new ToDoDto();

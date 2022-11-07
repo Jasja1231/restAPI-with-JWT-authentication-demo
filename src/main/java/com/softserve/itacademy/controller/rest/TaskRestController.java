@@ -1,7 +1,7 @@
 package com.softserve.itacademy.controller.rest;
 
 import com.softserve.itacademy.dto.TaskDto;
-import com.softserve.itacademy.dto.TaskTransformer;
+import com.softserve.itacademy.transformer.TaskTransformer;
 import com.softserve.itacademy.model.Priority;
 import com.softserve.itacademy.model.Task;
 import com.softserve.itacademy.service.StateService;

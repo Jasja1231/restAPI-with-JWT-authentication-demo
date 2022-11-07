@@ -1,5 +1,6 @@
-package com.softserve.itacademy.dto;
+package com.softserve.itacademy.transformer;
 
+import com.softserve.itacademy.dto.UserDto;
 import com.softserve.itacademy.model.User;
 import org.springframework.stereotype.Component;
 
