@@ -34,6 +34,12 @@ public class GlobalExceptionHandler {
         return getModelAndView(request, HttpStatus.NOT_FOUND, exception);
     }
 
+    @ExceptionHandler(DuplicateEntityException.class)
+    @ResponseStatus(value= HttpStatus.CONFLICT)
+    public ModelAndView duplicateEntityExceptionHandler(HttpServletRequest request, DuplicateEntityException exception) {
+        return getModelAndView(request, HttpStatus.CONFLICT, exception);
+    }
+
     @ExceptionHandler(Exception.class)
     @ResponseStatus(value= HttpStatus.INTERNAL_SERVER_ERROR)
     public ModelAndView internalServerErrorHandler(HttpServletRequest request, Exception exception) {
