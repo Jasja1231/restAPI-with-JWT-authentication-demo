@@ -1,7 +1,10 @@
 package com.softserve.itacademy.exception;
 
-public class JwtAuthenticationException extends Throwable {
-    public JwtAuthenticationException(String message) {
+
+import org.springframework.security.core.AuthenticationException;
+
+public class JwtAuthenticationException extends AuthenticationException {
+    public JwtAuthenticationException(String message ) {
         super(message);
     }
 }
