@@ -11,16 +11,16 @@ import java.util.List;
 
 public class JwtUser implements UserDetails {
 
-    private Long id;
-    private String firstName;
-    private String lastName;
-    private String email;
-    private String password;
+    private final Long id;
+    private final String firstName;
+    private final String lastName;
+    private final String email;
+    private final String password;
 
-    private List<GrantedAuthority> authorities;
+    private final List<GrantedAuthority> authorities;
 
 
-    public JwtUser(Long id, String firstName, String lastName, String email, Role role, String password){
+    public JwtUser(Long id, String firstName, String lastName, String email, Role role, String password) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;

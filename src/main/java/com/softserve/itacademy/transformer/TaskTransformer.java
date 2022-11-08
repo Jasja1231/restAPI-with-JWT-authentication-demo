@@ -7,13 +7,14 @@ import com.softserve.itacademy.model.Task;
 import com.softserve.itacademy.model.ToDo;
 
 public class TaskTransformer {
+
     public static TaskDto convertToDto(Task task) {
         return new TaskDto(
-                task.getId(),
-                task.getName(),
-                task.getPriority().toString(),
-                task.getTodo().getId(),
-                task.getState().getId()
+            task.getId(),
+            task.getName(),
+            task.getPriority().toString(),
+            task.getTodo().getId(),
+            task.getState().getId()
         );
     }
 

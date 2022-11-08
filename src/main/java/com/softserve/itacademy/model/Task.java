@@ -5,6 +5,7 @@ import javax.persistence.*;
 @Entity
 @Table(name = "tasks")
 public class Task {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
@@ -70,11 +71,11 @@ public class Task {
     @Override
     public String toString() {
         return "Task {" +
-                "id = " + id +
-                ", name = '" + name + '\'' +
-                ", priority = " + priority +
-                ", todo = " + todo +
-                ", state = " + state +
-                "} ";
+            "id = " + id +
+            ", name = '" + name + '\'' +
+            ", priority = " + priority +
+            ", todo = " + todo +
+            ", state = " + state +
+            "} ";
     }
 }

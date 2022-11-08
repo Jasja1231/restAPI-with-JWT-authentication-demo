@@ -15,7 +15,7 @@ import java.util.List;
 @Service
 public class ToDoServiceImpl implements ToDoService {
 
-    private ToDoRepository todoRepository;
+    private final ToDoRepository todoRepository;
 
     public ToDoServiceImpl(ToDoRepository todoRepository) {
         this.todoRepository = todoRepository;
@@ -32,7 +32,7 @@ public class ToDoServiceImpl implements ToDoService {
     @Override
     public ToDo readById(long id) {
         return todoRepository.findById(id).orElseThrow(
-                () -> new EntityNotFoundException("ToDo with id " + id + " not found"));
+            () -> new EntityNotFoundException("ToDo with id " + id + " not found"));
     }
 
     @Override
@@ -65,7 +65,7 @@ public class ToDoServiceImpl implements ToDoService {
         long userId = ((JwtUser) SecurityContextHolder.getContext()
             .getAuthentication()
             .getPrincipal())
-                .getId();
+            .getId();
         ToDo todo = readById(todoId);
 
         if (todo.getOwner().getId() == userId)
@@ -79,8 +79,8 @@ public class ToDoServiceImpl implements ToDoService {
         long userId = ((JwtUser) SecurityContextHolder.getContext()
             .getAuthentication()
             .getPrincipal())
-                .getId();
+            .getId();
 
-       return readById(todoId).getOwner().getId() == userId;
+        return readById(todoId).getOwner().getId() == userId;
     }
 }

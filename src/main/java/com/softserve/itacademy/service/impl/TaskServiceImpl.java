@@ -12,7 +12,8 @@ import java.util.List;
 
 @Service
 public class TaskServiceImpl implements TaskService {
-    private TaskRepository taskRepository;
+
+    private final TaskRepository taskRepository;
 
     public TaskServiceImpl(TaskRepository taskRepository) {
         this.taskRepository = taskRepository;
@@ -29,7 +30,7 @@ public class TaskServiceImpl implements TaskService {
     @Override
     public Task readById(long id) {
         return taskRepository.findById(id).orElseThrow(
-                () -> new EntityNotFoundException("Task with id " + id + " not found"));
+            () -> new EntityNotFoundException("Task with id " + id + " not found"));
     }
 
     @Override

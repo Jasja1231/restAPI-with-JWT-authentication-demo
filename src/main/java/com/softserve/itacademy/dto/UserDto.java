@@ -31,11 +31,13 @@ public class UserDto {
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private String password;
 
-    @JsonIgnore public String getPassword() {
+    @JsonIgnore
+    public String getPassword() {
         return password;
     }
 
-    @JsonIgnore public Role getRole() {
+    @JsonIgnore
+    public Role getRole() {
         return role;
     }
 }

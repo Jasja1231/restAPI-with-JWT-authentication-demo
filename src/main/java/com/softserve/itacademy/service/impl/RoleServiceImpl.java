@@ -13,7 +13,7 @@ import java.util.List;
 @Service
 public class RoleServiceImpl implements RoleService {
 
-    private RoleRepository roleRepository;
+    private final RoleRepository roleRepository;
 
     public RoleServiceImpl(RoleRepository roleRepository) {
         this.roleRepository = roleRepository;
@@ -30,7 +30,7 @@ public class RoleServiceImpl implements RoleService {
     @Override
     public Role readById(long id) {
         return roleRepository.findById(id).orElseThrow(
-                () -> new EntityNotFoundException("Role with id " + id + " not found"));
+            () -> new EntityNotFoundException("Role with id " + id + " not found"));
     }
 
     @Override

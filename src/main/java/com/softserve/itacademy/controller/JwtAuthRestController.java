@@ -21,9 +21,9 @@ import java.util.Optional;
 public class JwtAuthRestController {
 
 
-    private AuthenticationManager authenticationManager;
-    private JwtProvider jwtProvider;
-    private UserService userService;
+    private final AuthenticationManager authenticationManager;
+    private final JwtProvider jwtProvider;
+    private final UserService userService;
 
     @Autowired
     public JwtAuthRestController(AuthenticationManager authenticationManager, JwtProvider jwtProvider, UserService userService) {
@@ -35,15 +35,15 @@ public class JwtAuthRestController {
 
     @PostMapping("/login")
     @ResponseBody
-    public ResponseEntity login(@RequestBody AuthRequestUserDto requestUserDto){
-        try{
+    public ResponseEntity login(@RequestBody AuthRequestUserDto requestUserDto) {
+        try {
             String username = requestUserDto.getUsername();
-            authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(username,requestUserDto.getPassword()));
+            authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(username, requestUserDto.getPassword()));
             Optional<User> userFromDB = userService.findByEmail(username);
-            if(userFromDB.isEmpty()){
+            if (userFromDB.isEmpty()) {
                 throw new UsernameNotFoundException("Cannot authenticate user, invalid username.");
             }
-            String token = jwtProvider.createToken(username,userFromDB.get().getRole());
+            String token = jwtProvider.createToken(username, userFromDB.get().getRole());
 
 //            Map<Object,Object> response = new HashMap<>();
 //            response.put("username",username);
@@ -54,7 +54,7 @@ public class JwtAuthRestController {
 
             return ResponseEntity.ok(responseData);
 
-        }catch(AuthenticationException e){
+        } catch (AuthenticationException e) {
             throw new BadCredentialsException("Cannot authenticate user, invalid data.");
         }
     }

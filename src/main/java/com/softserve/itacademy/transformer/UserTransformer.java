@@ -6,8 +6,9 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class UserTransformer {
-    public static User toUserEntity(UserDto userDto){
-        User user  = new User();
+
+    public static User toUserEntity(UserDto userDto) {
+        User user = new User();
         user.setId(userDto.getId());
         user.setFirstName(userDto.getFirstName());
         user.setLastName(userDto.getLastName());
@@ -19,14 +20,14 @@ public class UserTransformer {
     }
 
 
-    public static UserDto toUserDto(User user){
+    public static UserDto toUserDto(User user) {
         return new UserDto(
-                 user.getId()
-                ,user.getFirstName()
-                ,user.getLastName()
-                ,user.getEmail()
-                ,user.getRole()
-                ,user.getPassword()
+            user.getId()
+            , user.getFirstName()
+            , user.getLastName()
+            , user.getEmail()
+            , user.getRole()
+            , user.getPassword()
         );
     }
 

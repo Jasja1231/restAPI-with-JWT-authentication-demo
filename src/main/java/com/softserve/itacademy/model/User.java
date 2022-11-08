@@ -6,18 +6,19 @@ import java.util.List;
 
 @Entity
 @Table(name = "users")
-public class User  {
+public class User {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
     @Pattern(regexp = "[A-Z][a-z]+",
-            message = "Must start with a capital letter followed by one or more lowercase letters")
+        message = "Must start with a capital letter followed by one or more lowercase letters")
     @Column(name = "first_name", nullable = false)
     private String firstName;
 
     @Pattern(regexp = "[A-Z][a-z]+",
-            message = "Must start with a capital letter followed by one or more lowercase letters")
+        message = "Must start with a capital letter followed by one or more lowercase letters")
     @Column(name = "last_name", nullable = false)
     private String lastName;
 
@@ -25,7 +26,7 @@ public class User  {
     @Column(name = "email", nullable = false, unique = true)
     private String email;
 
-//    @Pattern(regexp = "(?=.*[A-Za-z])(?=.*\\d)[A-Za-z\\d]{6,}",
+    //    @Pattern(regexp = "(?=.*[A-Za-z])(?=.*\\d)[A-Za-z\\d]{6,}",
 //            message = "Must be minimum 6 characters, at least one letter and one number")
     @Column(name = "password", nullable = false)
     private String password;
@@ -117,12 +118,12 @@ public class User  {
     @Override
     public String toString() {
         return "User {" +
-                "id = " + id +
-                ", firstName = '" + firstName + '\'' +
-                ", lastName = '" + lastName + '\'' +
-                ", email = '" + email + '\'' +
-                ", password = '" + password + '\'' +
-                ", role = " + role +
-                "} ";
+            "id = " + id +
+            ", firstName = '" + firstName + '\'' +
+            ", lastName = '" + lastName + '\'' +
+            ", email = '" + email + '\'' +
+            ", password = '" + password + '\'' +
+            ", role = " + role +
+            "} ";
     }
 }

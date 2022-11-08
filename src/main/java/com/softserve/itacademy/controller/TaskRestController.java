@@ -21,8 +21,9 @@ import java.util.stream.Collectors;
 @RestController
 @RequestMapping("/api/users/{u_id}/todos/{t_id}/tasks")
 public class TaskRestController {
+
     @Autowired
- TaskService taskService;
+    TaskService taskService;
     @Autowired
     ToDoService toDoService;
     @Autowired
@@ -30,19 +31,22 @@ public class TaskRestController {
     @Autowired
     UserService userService;
 
-@GetMapping
-List<TaskDto> getAll(){
-    return taskService.getAll().stream()
+    @GetMapping
+    List<TaskDto> getAll() {
+        return taskService.getAll().stream()
             .map(TaskDto::new)
             .collect(Collectors.toList());
-}
-@GetMapping("/{id}")
-@ResponseStatus(HttpStatus.OK)
-TaskDto getById(@PathVariable long id){return TaskTransformer.convertToDto(taskService.readById(id));}
+    }
+
+    @GetMapping("/{id}")
+    @ResponseStatus(HttpStatus.OK)
+    TaskDto getById(@PathVariable long id) {
+        return TaskTransformer.convertToDto(taskService.readById(id));
+    }
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    ResponseEntity<?>create(@RequestBody TaskDto taskDto){
+    ResponseEntity<?> create(@RequestBody TaskDto taskDto) {
         Task task = new Task();
         task.setName(taskDto.getName());
         task.setPriority(Priority.valueOf(taskDto.getPriority()));
@@ -51,16 +55,17 @@ TaskDto getById(@PathVariable long id){return TaskTransformer.convertToDto(taskS
         taskService.create(task);
 
         URI location = ServletUriComponentsBuilder
-                .fromCurrentRequest()
-                .path("/{id}")
-                .buildAndExpand(taskDto.getId())
-                .toUri();
+            .fromCurrentRequest()
+            .path("/{id}")
+            .buildAndExpand(taskDto.getId())
+            .toUri();
         return ResponseEntity.created(location).build();
 
-}
+    }
+
     @PutMapping("/{id}")
     @ResponseStatus(HttpStatus.CREATED)
-    ResponseEntity<Object> put(@PathVariable long id,@RequestBody TaskDto taskDto) {
+    ResponseEntity<Object> put(@PathVariable long id, @RequestBody TaskDto taskDto) {
 
         Task task = new Task();
         task.setName(taskDto.getName());
@@ -70,12 +75,13 @@ TaskDto getById(@PathVariable long id){return TaskTransformer.convertToDto(taskS
         taskService.create(task);
 
         URI location = ServletUriComponentsBuilder
-                .fromCurrentRequest()
-                .buildAndExpand(taskDto.getId())
-                .toUri();
+            .fromCurrentRequest()
+            .buildAndExpand(taskDto.getId())
+            .toUri();
 
         return ResponseEntity.created(location).build();
     }
+
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     void delete(@PathVariable long id) {

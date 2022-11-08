@@ -10,6 +10,7 @@ import java.util.Objects;
 
 @JsonNaming(PropertyNamingStrategy.SnakeCaseStrategy.class)
 public class TaskDto {
+
     private long id;
 
     @NotBlank(message = "The 'name' cannot be empty")
@@ -37,7 +38,7 @@ public class TaskDto {
 
     public TaskDto(Task task) {
         this.id = task.getId();
-        this.name= task.getName();
+        this.name = task.getName();
         this.priority = task.getPriority().toString();
         this.todoId = task.getTodo().getId();
         this.stateId = task.getState().getId();
@@ -99,11 +100,11 @@ public class TaskDto {
     @Override
     public String toString() {
         return "TaskDto { " +
-                "id = " + id +
-                ", name = '" + name + '\'' +
-                ", priority = '" + priority + '\'' +
-                ", todoId = " + todoId +
-                ", stateId = " + stateId +
-                " }";
+            "id = " + id +
+            ", name = '" + name + '\'' +
+            ", priority = '" + priority + '\'' +
+            ", todoId = " + todoId +
+            ", stateId = " + stateId +
+            " }";
     }
 }

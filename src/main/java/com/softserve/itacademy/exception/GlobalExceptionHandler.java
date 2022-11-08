@@ -23,25 +23,25 @@ public class GlobalExceptionHandler {
     }
 
     @ExceptionHandler(AccessDeniedException.class)
-    @ResponseStatus(value= HttpStatus.FORBIDDEN)
+    @ResponseStatus(value = HttpStatus.FORBIDDEN)
     public void accessDeniedExceptionHandler(HttpServletRequest request, Exception exception) {
         logException(request, exception);
     }
 
     @ExceptionHandler(EntityNotFoundException.class)
-    @ResponseStatus(value= HttpStatus.NOT_FOUND)
+    @ResponseStatus(value = HttpStatus.NOT_FOUND)
     public void entityNotFoundExceptionHandler(HttpServletRequest request, EntityNotFoundException exception) {
         logException(request, exception);
     }
 
     @ExceptionHandler(DuplicateEntityException.class)
-    @ResponseStatus(value= HttpStatus.CONFLICT)
+    @ResponseStatus(value = HttpStatus.CONFLICT)
     public void duplicateEntityExceptionHandler(HttpServletRequest request, DuplicateEntityException exception) {
         logException(request, exception);
     }
 
     @ExceptionHandler(Exception.class)
-    @ResponseStatus(value= HttpStatus.INTERNAL_SERVER_ERROR)
+    @ResponseStatus(value = HttpStatus.INTERNAL_SERVER_ERROR)
     public void internalServerErrorHandler(HttpServletRequest request, Exception exception) {
         logException(request, exception);
     }
