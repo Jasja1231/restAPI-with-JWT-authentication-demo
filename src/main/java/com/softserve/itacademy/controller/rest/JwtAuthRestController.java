@@ -55,10 +55,9 @@ public class JwtAuthRestController {
             responseData.setToken(token);
 
             return ResponseEntity.ok(responseData);
-            
+
         }catch(AuthenticationException e){
             throw new BadCredentialsException("Cannot authenticate user, invalid data.");
         }
-        return null;
     }
 }
