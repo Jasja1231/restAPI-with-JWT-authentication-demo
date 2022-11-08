@@ -4,12 +4,7 @@ package com.softserve.itacademy.dto;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.softserve.itacademy.model.Role;
-import com.softserve.itacademy.service.UserService;
 import lombok.Data;
-import lombok.Getter;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.boot.context.properties.bind.DefaultValue;
 
 import javax.validation.constraints.NotNull;
 
@@ -36,11 +31,13 @@ public class UserDto {
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private String password;
 
-    @JsonIgnore public String getPassword() {
+    @JsonIgnore
+    public String getPassword() {
         return password;
     }
 
-    @JsonIgnore public Role getRole() {
+    @JsonIgnore
+    public Role getRole() {
         return role;
     }
 }

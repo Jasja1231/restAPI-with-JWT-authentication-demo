@@ -7,6 +7,7 @@ import java.util.List;
 @Entity
 @Table(name = "states")
 public class State {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
@@ -44,8 +45,8 @@ public class State {
     @Override
     public String toString() {
         return "State {" +
-                "id = " + id +
-                ", name = '" + name + '\'' +
-                "} ";
+            "id = " + id +
+            ", name = '" + name + '\'' +
+            "} ";
     }
 }

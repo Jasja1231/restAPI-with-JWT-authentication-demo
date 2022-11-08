@@ -14,7 +14,7 @@ import java.util.Optional;
 @Service("userServiceImpl")
 public class UserServiceImpl implements UserService {
 
-    private UserRepository userRepository;
+    private final UserRepository userRepository;
 
     public UserServiceImpl(UserRepository userRepository) {
         this.userRepository = userRepository;
@@ -31,7 +31,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public User readById(long id) {
         return userRepository.findById(id).orElseThrow(
-                () -> new EntityNotFoundException("User with id " + id + " not found"));
+            () -> new EntityNotFoundException("User with id " + id + " not found"));
     }
 
     @Override
@@ -49,14 +49,13 @@ public class UserServiceImpl implements UserService {
     }
 
 
-
     @Override
     public List<User> getAll() {
         List<User> users = userRepository.findAll();
         return users.isEmpty() ? new ArrayList<>() : users;
     }
 
-    public Optional<User> findByEmail(String email){
-       return userRepository.findByEmail(email);
+    public Optional<User> findByEmail(String email) {
+        return userRepository.findByEmail(email);
     }
 }

@@ -1,7 +1,6 @@
-package com.softserve.itacademy.service.detail;
+package com.softserve.itacademy.service.impl;
 
 import com.softserve.itacademy.model.User;
-import com.softserve.itacademy.repository.UserRepository;
 import com.softserve.itacademy.security.JwtUser;
 import com.softserve.itacademy.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +13,7 @@ import java.util.Optional;
 
 @Service
 public class JwtUserDetailServiceImpl implements UserDetailsService {
+
     private final UserService userService;
 
     @Autowired
@@ -30,11 +30,11 @@ public class JwtUserDetailServiceImpl implements UserDetailsService {
         //Read user
         User readUser = user.get();
         JwtUser jwtUser = new JwtUser(readUser.getId(),
-                readUser.getFirstName(),
-                readUser.getLastName(),
-                readUser.getEmail(),
-                readUser.getRole(),
-                readUser.getPassword());
+            readUser.getFirstName(),
+            readUser.getLastName(),
+            readUser.getEmail(),
+            readUser.getRole(),
+            readUser.getPassword());
 
         return jwtUser;
     }

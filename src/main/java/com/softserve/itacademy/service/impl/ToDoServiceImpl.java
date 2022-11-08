@@ -3,7 +3,7 @@ package com.softserve.itacademy.service.impl;
 import com.softserve.itacademy.exception.NullEntityReferenceException;
 import com.softserve.itacademy.model.ToDo;
 import com.softserve.itacademy.repository.ToDoRepository;
-import com.softserve.itacademy.security.UserDetailsImpl;
+import com.softserve.itacademy.security.JwtUser;
 import com.softserve.itacademy.service.ToDoService;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
@@ -15,7 +15,7 @@ import java.util.List;
 @Service
 public class ToDoServiceImpl implements ToDoService {
 
-    private ToDoRepository todoRepository;
+    private final ToDoRepository todoRepository;
 
     public ToDoServiceImpl(ToDoRepository todoRepository) {
         this.todoRepository = todoRepository;
@@ -32,7 +32,7 @@ public class ToDoServiceImpl implements ToDoService {
     @Override
     public ToDo readById(long id) {
         return todoRepository.findById(id).orElseThrow(
-                () -> new EntityNotFoundException("ToDo with id " + id + " not found"));
+            () -> new EntityNotFoundException("ToDo with id " + id + " not found"));
     }
 
     @Override
@@ -62,11 +62,10 @@ public class ToDoServiceImpl implements ToDoService {
     }
 
     public boolean canAccessToDo(long todoId) {
-        long userId = ((UserDetailsImpl) SecurityContextHolder.getContext()
+        long userId = ((JwtUser) SecurityContextHolder.getContext()
             .getAuthentication()
             .getPrincipal())
-                .getUser()
-                .getId();
+            .getId();
         ToDo todo = readById(todoId);
 
         if (todo.getOwner().getId() == userId)
@@ -77,12 +76,11 @@ public class ToDoServiceImpl implements ToDoService {
     }
 
     public boolean isToDoOwner(long todoId) {
-        long userId = ((UserDetailsImpl) SecurityContextHolder.getContext()
+        long userId = ((JwtUser) SecurityContextHolder.getContext()
             .getAuthentication()
             .getPrincipal())
-            .getUser()
             .getId();
 
-       return readById(todoId).getOwner().getId() == userId;
+        return readById(todoId).getOwner().getId() == userId;
     }
 }

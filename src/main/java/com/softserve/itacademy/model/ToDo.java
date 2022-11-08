@@ -2,14 +2,13 @@ package com.softserve.itacademy.model;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Set;
 
 @Entity
 @Table(name = "todos")
 public class ToDo {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
@@ -30,8 +29,8 @@ public class ToDo {
 
     @ManyToMany
     @JoinTable(name = "todo_collaborator",
-            joinColumns = @JoinColumn(name = "todo_id"),
-            inverseJoinColumns = @JoinColumn(name = "collaborator_id"))
+        joinColumns = @JoinColumn(name = "todo_id"),
+        inverseJoinColumns = @JoinColumn(name = "collaborator_id"))
     private List<User> collaborators;
 
     public ToDo() {
@@ -88,9 +87,9 @@ public class ToDo {
     @Override
     public String toString() {
         return "ToDo {" +
-                "id = " + id +
-                ", title = '" + title + '\'' +
-                ", createdAt = " + createdAt +
-                "} ";
+            "id = " + id +
+            ", title = '" + title + '\'' +
+            ", createdAt = " + createdAt +
+            "} ";
     }
 }

@@ -1,7 +1,6 @@
 package com.softserve.itacademy.service.impl;
 
 import com.softserve.itacademy.exception.NullEntityReferenceException;
-import com.softserve.itacademy.model.Role;
 import com.softserve.itacademy.model.Task;
 import com.softserve.itacademy.repository.TaskRepository;
 import com.softserve.itacademy.service.TaskService;
@@ -10,11 +9,11 @@ import org.springframework.stereotype.Service;
 import javax.persistence.EntityNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class TaskServiceImpl implements TaskService {
-    private TaskRepository taskRepository;
+
+    private final TaskRepository taskRepository;
 
     public TaskServiceImpl(TaskRepository taskRepository) {
         this.taskRepository = taskRepository;
@@ -31,7 +30,7 @@ public class TaskServiceImpl implements TaskService {
     @Override
     public Task readById(long id) {
         return taskRepository.findById(id).orElseThrow(
-                () -> new EntityNotFoundException("Task with id " + id + " not found"));
+            () -> new EntityNotFoundException("Task with id " + id + " not found"));
     }
 
     @Override

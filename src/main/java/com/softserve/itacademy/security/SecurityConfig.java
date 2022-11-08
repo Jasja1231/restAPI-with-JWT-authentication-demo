@@ -1,6 +1,6 @@
 package com.softserve.itacademy.security;
 
-import com.softserve.itacademy.service.detail.JwtUserDetailServiceImpl;
+import com.softserve.itacademy.service.impl.JwtUserDetailServiceImpl;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -73,8 +73,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     private final JwtProvider jwtProvider;
 
-   @Autowired
-   JwtUserDetailServiceImpl userServiceImpl;
+    @Autowired
+    JwtUserDetailServiceImpl userServiceImpl;
 
     @Autowired
     public SecurityConfig(JwtProvider jwtProvider) {
@@ -92,7 +92,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         auth.userDetailsService(userServiceImpl);
     }
 
-    @Autowired //TODO: this bean already registered in jwtProvider but maybe it should be here instead
+    @Autowired
+        //TODO: this bean already registered in jwtProvider but maybe it should be here instead
     PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
@@ -101,16 +102,16 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
-                .httpBasic().disable()
-                .csrf().disable()
-                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-                .and()
-                .authorizeRequests()
-                .antMatchers(HttpMethod.POST,"/api/auth/login").permitAll()
-                .antMatchers(HttpMethod.POST,"/api/users").permitAll()
-                .anyRequest().authenticated()
-                .and()
-                .apply(new JwtConfigurer(jwtProvider));
+            .httpBasic().disable()
+            .csrf().disable()
+            .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+            .and()
+            .authorizeRequests()
+            .antMatchers(HttpMethod.POST, "/api/auth/login").permitAll()
+            .antMatchers(HttpMethod.POST, "/api/users").permitAll()
+            .anyRequest().authenticated()
+            .and()
+            .apply(new JwtConfigurer(jwtProvider));
     }
 }
 

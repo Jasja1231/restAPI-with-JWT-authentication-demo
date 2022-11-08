@@ -1,19 +1,20 @@
-package com.softserve.itacademy.controller.rest;
+package com.softserve.itacademy.controller;
 
 import com.softserve.itacademy.dto.TaskDto;
-import com.softserve.itacademy.transformer.TaskTransformer;
 import com.softserve.itacademy.model.Priority;
 import com.softserve.itacademy.model.Task;
 import com.softserve.itacademy.service.StateService;
 import com.softserve.itacademy.service.TaskService;
 import com.softserve.itacademy.service.ToDoService;
 import com.softserve.itacademy.service.UserService;
+import com.softserve.itacademy.transformer.TaskTransformer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
+
 import java.net.URI;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -21,8 +22,9 @@ import java.util.stream.Collectors;
 @RestController
 @RequestMapping("/api/users/{u_id}/todos/{t_id}/tasks")
 public class TaskRestController {
+
     @Autowired
- TaskService taskService;
+    TaskService taskService;
     @Autowired
     ToDoService toDoService;
     @Autowired
@@ -30,20 +32,23 @@ public class TaskRestController {
     @Autowired
     UserService userService;
 
-@GetMapping
-List<TaskDto> getAll(){
-    return taskService.getAll().stream()
+    @GetMapping
+    List<TaskDto> getAll() {
+        return taskService.getAll().stream()
             .map(TaskDto::new)
             .collect(Collectors.toList());
-}
-@GetMapping("/{id}")
-@ResponseStatus(HttpStatus.OK)
-TaskDto getById(@PathVariable long id){return TaskTransformer.convertToDto(taskService.readById(id));}
+    }
+
+    @GetMapping("/{id}")
+    @ResponseStatus(HttpStatus.OK)
+    TaskDto getById(@PathVariable long id) {
+        return TaskTransformer.convertToDto(taskService.readById(id));
+    }
 
     @PostMapping
     @PreAuthorize("hasRole('ADMIN') or @toDoServiceImpl.canAccessToDo(#todoId)")
     @ResponseStatus(HttpStatus.CREATED)
-    ResponseEntity<?>create(@RequestBody TaskDto taskDto){
+    ResponseEntity<?> create(@RequestBody TaskDto taskDto) {
         Task task = new Task();
         task.setName(taskDto.getName());
         task.setPriority(Priority.valueOf(taskDto.getPriority()));
@@ -52,17 +57,18 @@ TaskDto getById(@PathVariable long id){return TaskTransformer.convertToDto(taskS
         taskService.create(task);
 
         URI location = ServletUriComponentsBuilder
-                .fromCurrentRequest()
-                .path("/{id}")
-                .buildAndExpand(taskDto.getId())
-                .toUri();
+            .fromCurrentRequest()
+            .path("/{id}")
+            .buildAndExpand(taskDto.getId())
+            .toUri();
         return ResponseEntity.created(location).build();
 
-}
+    }
+
     @PutMapping("/{id}")
     @PreAuthorize("hasRole('ADMIN') or @toDoServiceImpl.canAccessToDo(#todoId)")
     @ResponseStatus(HttpStatus.CREATED)
-    ResponseEntity<Object> put(@PathVariable long id,@RequestBody TaskDto taskDto) {
+    ResponseEntity<Object> put(@PathVariable long id, @RequestBody TaskDto taskDto) {
 
         Task task = new Task();
         task.setName(taskDto.getName());
@@ -73,12 +79,13 @@ TaskDto getById(@PathVariable long id){return TaskTransformer.convertToDto(taskS
 
 
         URI location = ServletUriComponentsBuilder
-                .fromCurrentRequest()
-                .buildAndExpand(taskDto.getId())
-                .toUri();
+            .fromCurrentRequest()
+            .buildAndExpand(taskDto.getId())
+            .toUri();
 
         return ResponseEntity.created(location).build();
     }
+
     @DeleteMapping("/{id}")
     @PreAuthorize("hasRole('ADMIN') or @toDoServiceImpl.canAccessToDo(#todoId)")
     @ResponseStatus(HttpStatus.NO_CONTENT)
