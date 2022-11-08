@@ -31,7 +31,9 @@ public class JwtUser implements UserDetails {
         authorities.add(new SimpleGrantedAuthority("ROLE_" + role.getName()));
     }
 
-
+    public long getId() {
+        return id;
+    }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
