@@ -3,6 +3,7 @@ package com.softserve.itacademy.service.detail;
 import com.softserve.itacademy.model.User;
 import com.softserve.itacademy.repository.UserRepository;
 import com.softserve.itacademy.security.JwtUser;
+import com.softserve.itacademy.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -13,17 +14,17 @@ import java.util.Optional;
 
 @Service
 public class JwtUserDetailServiceImpl implements UserDetailsService {
-    private final UserRepository userRepository;
+    private final UserService userService;
 
     @Autowired
-    public JwtUserDetailServiceImpl(UserRepository userRepository) {
-        this.userRepository = userRepository;
+    public JwtUserDetailServiceImpl(UserService userService) {
+        this.userService = userService;
     }
 
 
     @Override
     public UserDetails loadUserByUsername(String username/*email*/) throws UsernameNotFoundException {
-        Optional<User> user = userRepository.findByEmail(username);
+        Optional<User> user = userService.findByEmail(username);
         if (user.isEmpty()) throw new UsernameNotFoundException("User not found!");
 
         //Read user
