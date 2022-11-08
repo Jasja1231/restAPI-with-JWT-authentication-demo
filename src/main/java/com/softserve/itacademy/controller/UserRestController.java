@@ -67,13 +67,13 @@ public class UserRestController {
 
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
-    @PreAuthorize("hasRole('ADMIN') or authentication.principal.user.id == #id")
+    @PreAuthorize("hasRole('ADMIN') or authentication.principal.id == #id")
     public void delete(@PathVariable Long id) {
         userService.delete(id);
     }
 
     @PostMapping("/{id}")
-    @PreAuthorize("hasRole('ADMIN') or authentication.principal.user.id == #id")
+    @PreAuthorize("hasRole('ADMIN') or authentication.principal.id == #id")
     public void update(@PathVariable("id") long id, @RequestBody UserDto userDto) {
         userDto.setId(id);
         User user = userService.readById(id);
