@@ -79,12 +79,15 @@ public class JwtProvider {
     }
 
     public Authentication getAuthentication (String token){
-        UserDetails userDetails = this.jwtUserDetailService.loadUserByUsername(token);
+        UserDetails userDetails = this.jwtUserDetailService.loadUserByUsername(getUsername(token));
         return  new UsernamePasswordAuthenticationToken(userDetails,"",userDetails.getAuthorities());
     }
 
+
+
     public  String getUsername (String token){
-        return Jwts.parser().setSigningKey(secret).parseClaimsJws(token).getBody().getSubject();
+        String res = Jwts.parser().setSigningKey(secret).parseClaimsJws(token).getBody().getSubject();
+        return res;
     }
 
     public String resolveToken(HttpServletRequest request){
