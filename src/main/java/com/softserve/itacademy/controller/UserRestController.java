@@ -8,6 +8,7 @@ import com.softserve.itacademy.transformer.UserTransformer;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
@@ -56,6 +57,7 @@ public class UserRestController {
      * body: [{“id”:1, “first_name”: ”Mike”, “email”: “a@g.com”}, {…}, {…}]
      */
     @GetMapping("")
+    @PreAuthorize("hasRole('ADMIN')")
     public List<UserDto> getAllUsers() {
         return userService.getAll()
             .stream()
@@ -65,11 +67,13 @@ public class UserRestController {
 
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
+    @PreAuthorize("hasRole('ADMIN') or authentication.principal.user.id == #id")
     public void delete(@PathVariable Long id) {
         userService.delete(id);
     }
 
     @PostMapping("/{id}")
+    @PreAuthorize("hasRole('ADMIN') or authentication.principal.user.id == #id")
     public void update(@PathVariable("id") long id, @RequestBody UserDto userDto) {
         userDto.setId(id);
         User user = userService.readById(id);
