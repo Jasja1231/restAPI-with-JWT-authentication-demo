@@ -17,7 +17,9 @@ import javax.servlet.http.HttpServletRequest;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.Date;
-
+/**
+ * Class that generates/creates Token
+ * */
 @Component
 public class JwtProvider {
     //    @Value("${security.jwt.token.secret-key}")
@@ -52,11 +54,10 @@ public class JwtProvider {
 
     @Bean
     public BCryptPasswordEncoder passwordEncoder() {
-
         BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
         return bCryptPasswordEncoder;
     }
-@Autowired
+    @Autowired
      private   UserDetailsService userDetailsService;
 
     public  String createToken(String username, Role role){
@@ -74,12 +75,13 @@ public class JwtProvider {
 
     public Authentication getAuthentication (String token){
         UserDetails userDetails = this.userDetailsService.loadUserByUsername(token);
-return  new UsernamePasswordAuthenticationToken(userDetails,"",userDetails.getAuthorities());
+        return  new UsernamePasswordAuthenticationToken(userDetails,"",userDetails.getAuthorities());
     }
 
     public  String getUsername (String token){
         return Jwts.parser().setSigningKey(secret).parseClaimsJws(token).getBody().getSubject();
     }
+
     public String resolveToken(HttpServletRequest request){
         String bearerToken = request.getHeader("Authorization");
         if(bearerToken != null && bearerToken.startsWith("Bearer_")){
@@ -87,6 +89,7 @@ return  new UsernamePasswordAuthenticationToken(userDetails,"",userDetails.getAu
         }
         return null;
     }
+
     public  boolean validateToken(String token) throws JwtAuthenticationException {
         try {
             Jws<Claims> claims = Jwts.parser().setSigningKey(secret).parseClaimsJws(token);
@@ -96,7 +99,10 @@ return  new UsernamePasswordAuthenticationToken(userDetails,"",userDetails.getAu
             return  true;
         }catch (JwtException|IllegalArgumentException e){
           throw new JwtAuthenticationException("Jwt taken is expired or invalid");
+        }
     }
-}
-private String getRoleName (Role accountRole){return accountRole.getName();}
+
+    private String getRoleName (Role accountRole){
+            return accountRole.getName();
+    }
 }
