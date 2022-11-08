@@ -1,10 +1,10 @@
 package com.softserve.itacademy.controller;
 
 import com.softserve.itacademy.dto.UserDto;
-import com.softserve.itacademy.transformer.UserTransformer;
 import com.softserve.itacademy.model.User;
 import com.softserve.itacademy.service.RoleService;
 import com.softserve.itacademy.service.UserService;
+import com.softserve.itacademy.transformer.UserTransformer;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

@@ -1,7 +1,6 @@
 package com.softserve.itacademy.service.impl;
 
 import com.softserve.itacademy.model.User;
-import com.softserve.itacademy.repository.UserRepository;
 import com.softserve.itacademy.security.JwtUser;
 import com.softserve.itacademy.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;

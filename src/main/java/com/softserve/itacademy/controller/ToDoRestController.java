@@ -1,15 +1,15 @@
 package com.softserve.itacademy.controller;
 
-import com.softserve.itacademy.security.JwtUser;
-import com.softserve.itacademy.transformer.ToDoTransformer;
 import com.softserve.itacademy.dto.CollaboratorDto;
 import com.softserve.itacademy.dto.ToDoDto;
 import com.softserve.itacademy.dto.UserDto;
-import com.softserve.itacademy.transformer.UserTransformer;
 import com.softserve.itacademy.exception.DuplicateEntityException;
 import com.softserve.itacademy.model.ToDo;
+import com.softserve.itacademy.security.JwtUser;
 import com.softserve.itacademy.service.ToDoService;
 import com.softserve.itacademy.service.UserService;
+import com.softserve.itacademy.transformer.ToDoTransformer;
+import com.softserve.itacademy.transformer.UserTransformer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;
