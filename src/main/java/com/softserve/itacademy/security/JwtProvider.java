@@ -2,6 +2,7 @@ package com.softserve.itacademy.security;
 
 import com.softserve.itacademy.exception.JwtAuthenticationException;
 import com.softserve.itacademy.model.Role;
+import com.softserve.itacademy.service.detail.JwtUserDetailServiceImpl;
 import io.jsonwebtoken.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -51,14 +52,18 @@ public class JwtProvider {
 //}
     @Value("${security.jwt.token.secret-key}")
     private String secret;
+    private final JwtUserDetailServiceImpl jwtUserDetailService;
+
+    @Autowired
+    public JwtProvider(JwtUserDetailServiceImpl jwtUserDetailService) {
+        this.jwtUserDetailService = jwtUserDetailService;
+    }
 
     @Bean
     public BCryptPasswordEncoder passwordEncoder() {
         BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
         return bCryptPasswordEncoder;
     }
-    @Autowired
-     private   UserDetailsService userDetailsService;
 
     public  String createToken(String username, Role role){
         Claims claims = Jwts.claims().setSubject(username);
@@ -74,7 +79,7 @@ public class JwtProvider {
     }
 
     public Authentication getAuthentication (String token){
-        UserDetails userDetails = this.userDetailsService.loadUserByUsername(token);
+        UserDetails userDetails = this.jwtUserDetailService.loadUserByUsername(token);
         return  new UsernamePasswordAuthenticationToken(userDetails,"",userDetails.getAuthorities());
     }
 
