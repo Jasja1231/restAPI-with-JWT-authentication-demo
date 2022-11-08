@@ -33,6 +33,7 @@ public class TaskRestController {
     UserService userService;
 
     @GetMapping
+    @PreAuthorize("hasRole('ADMIN') or @toDoServiceImpl.canAccessToDo(#todoId)")
     List<TaskDto> getAll() {
         return taskService.getAll().stream()
             .map(TaskDto::new)
@@ -40,10 +41,13 @@ public class TaskRestController {
     }
 
     @GetMapping("/{id}")
+    @PreAuthorize("hasRole('ADMIN') or @toDoServiceImpl.canAccessToDo(#todoId)")
     @ResponseStatus(HttpStatus.OK)
     TaskDto getById(@PathVariable long id) {
         return TaskTransformer.convertToDto(taskService.readById(id));
     }
+
+
 
     @PostMapping
     @PreAuthorize("hasRole('ADMIN') or @toDoServiceImpl.canAccessToDo(#todoId)")
