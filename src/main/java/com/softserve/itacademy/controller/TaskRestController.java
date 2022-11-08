@@ -33,26 +33,26 @@ public class TaskRestController {
     UserService userService;
 
     @GetMapping
-    @PreAuthorize("hasRole('ADMIN') or @toDoServiceImpl.canAccessToDo(#todoId)")
-    List<TaskDto> getAll() {
+    @PreAuthorize("hasRole('ADMIN') or @toDoServiceImpl.canAccessToDo(#t_id)")
+    List<TaskDto> getAll(@PathVariable String t_id) {
         return taskService.getAll().stream()
             .map(TaskDto::new)
             .collect(Collectors.toList());
     }
 
     @GetMapping("/{id}")
-    @PreAuthorize("hasRole('ADMIN') or @toDoServiceImpl.canAccessToDo(#todoId)")
+    @PreAuthorize("hasRole('ADMIN') or @toDoServiceImpl.canAccessToDo(#t_id)")
     @ResponseStatus(HttpStatus.OK)
-    TaskDto getById(@PathVariable long id) {
+    TaskDto getById(@PathVariable long id, @PathVariable String t_id) {
         return TaskTransformer.convertToDto(taskService.readById(id));
     }
 
 
 
     @PostMapping
-    @PreAuthorize("hasRole('ADMIN') or @toDoServiceImpl.canAccessToDo(#todoId)")
+    @PreAuthorize("hasRole('ADMIN') or @toDoServiceImpl.canAccessToDo(#t_id)")
     @ResponseStatus(HttpStatus.CREATED)
-    ResponseEntity<?> create(@RequestBody TaskDto taskDto) {
+    ResponseEntity<?> create(@RequestBody TaskDto taskDto, @PathVariable String t_id) {
         Task task = new Task();
         task.setName(taskDto.getName());
         task.setPriority(Priority.valueOf(taskDto.getPriority()));
@@ -70,9 +70,9 @@ public class TaskRestController {
     }
 
     @PutMapping("/{id}")
-    @PreAuthorize("hasRole('ADMIN') or @toDoServiceImpl.canAccessToDo(#todoId)")
+    @PreAuthorize("hasRole('ADMIN') or @toDoServiceImpl.canAccessToDo(#t_id)")
     @ResponseStatus(HttpStatus.CREATED)
-    ResponseEntity<Object> put(@PathVariable long id, @RequestBody TaskDto taskDto) {
+    ResponseEntity<Object> put(@PathVariable long id, @RequestBody TaskDto taskDto, @PathVariable String t_id) {
 
         Task task = new Task();
         task.setName(taskDto.getName());
@@ -91,9 +91,9 @@ public class TaskRestController {
     }
 
     @DeleteMapping("/{id}")
-    @PreAuthorize("hasRole('ADMIN') or @toDoServiceImpl.canAccessToDo(#todoId)")
+    @PreAuthorize("hasRole('ADMIN') or @toDoServiceImpl.canAccessToDo(#t_id)")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    void delete(@PathVariable long id) {
+    void delete(@PathVariable long id, @PathVariable String t_id) {
         taskService.delete(id);
     }
 
