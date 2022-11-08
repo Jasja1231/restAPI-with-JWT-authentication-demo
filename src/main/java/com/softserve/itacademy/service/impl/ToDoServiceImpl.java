@@ -3,7 +3,7 @@ package com.softserve.itacademy.service.impl;
 import com.softserve.itacademy.exception.NullEntityReferenceException;
 import com.softserve.itacademy.model.ToDo;
 import com.softserve.itacademy.repository.ToDoRepository;
-import com.softserve.itacademy.security.UserDetailsImpl;
+import com.softserve.itacademy.security.JwtUser;
 import com.softserve.itacademy.service.ToDoService;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
@@ -62,10 +62,9 @@ public class ToDoServiceImpl implements ToDoService {
     }
 
     public boolean canAccessToDo(long todoId) {
-        long userId = ((UserDetailsImpl) SecurityContextHolder.getContext()
+        long userId = ((JwtUser) SecurityContextHolder.getContext()
             .getAuthentication()
             .getPrincipal())
-                .getUser()
                 .getId();
         ToDo todo = readById(todoId);
 
@@ -77,11 +76,10 @@ public class ToDoServiceImpl implements ToDoService {
     }
 
     public boolean isToDoOwner(long todoId) {
-        long userId = ((UserDetailsImpl) SecurityContextHolder.getContext()
+        long userId = ((JwtUser) SecurityContextHolder.getContext()
             .getAuthentication()
             .getPrincipal())
-            .getUser()
-            .getId();
+                .getId();
 
        return readById(todoId).getOwner().getId() == userId;
     }
