@@ -1,4 +1,4 @@
-package com.softserve.itacademy.service.detail;
+package com.softserve.itacademy.service.impl;
 
 import com.softserve.itacademy.model.User;
 import com.softserve.itacademy.repository.UserRepository;

@@ -1,4 +1,4 @@
-package com.softserve.itacademy.controller.rest;
+package com.softserve.itacademy.controller;
 
 import com.softserve.itacademy.dto.TaskDto;
 import com.softserve.itacademy.transformer.TaskTransformer;

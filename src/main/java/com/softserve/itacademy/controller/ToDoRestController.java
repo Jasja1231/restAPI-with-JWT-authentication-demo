@@ -1,4 +1,4 @@
-package com.softserve.itacademy.controller.rest;
+package com.softserve.itacademy.controller;
 
 import com.softserve.itacademy.security.JwtUser;
 import com.softserve.itacademy.transformer.ToDoTransformer;

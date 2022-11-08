@@ -1,6 +1,6 @@
 package com.softserve.itacademy.security;
 
-import com.softserve.itacademy.service.detail.JwtUserDetailServiceImpl;
+import com.softserve.itacademy.service.impl.JwtUserDetailServiceImpl;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
