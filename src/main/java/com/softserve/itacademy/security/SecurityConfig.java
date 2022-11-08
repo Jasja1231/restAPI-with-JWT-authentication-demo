@@ -92,7 +92,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         auth.userDetailsService(userServiceImpl);
     }
 
-    @Autowired
+    @Bean //TODO: this bean already registered in jwtProvider but maybe it should be here instead
     PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
